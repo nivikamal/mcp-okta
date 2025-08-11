@@ -1,6 +1,13 @@
 import pino from "pino";
 import { v4 as uuidv4 } from "uuid";
-import { ToolHandlerContext } from "@modelcontextprotocol/sdk";
+// Simple context interface for compatibility
+interface ToolHandlerContext {
+  metadata?: {
+    correlationId?: string;
+    caller?: string;
+    callerRole?: string;
+  };
+}
 import { Role } from "../config/rbac.js";
 
 const log = pino({ level: process.env.LOG_LEVEL || "info" });
@@ -17,6 +24,7 @@ export interface AuditRecord {
     message: string;
     code?: string;
   };
+  ok: boolean;
   oktaRequestId?: string;
   duration?: number;
 }

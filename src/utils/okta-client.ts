@@ -71,7 +71,7 @@ const okta: AxiosInstance = axios.create({
 });
 
 // Request interceptor to add auth token
-okta.interceptors.request.use(async (config: AxiosRequestConfig) => {
+okta.interceptors.request.use(async (config: any) => {
   config.headers = config.headers || {};
   config.headers.Authorization = `Bearer ${await getToken()}`;
   return config;

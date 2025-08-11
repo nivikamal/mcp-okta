@@ -1,4 +1,11 @@
-import { ToolHandlerContext } from "@modelcontextprotocol/sdk";
+// Simple context interface for compatibility
+interface ToolHandlerContext {
+  metadata?: {
+    correlationId?: string;
+    caller?: string;
+    callerRole?: string;
+  };
+}
 import {
   Role,
   roleToolAllowList,

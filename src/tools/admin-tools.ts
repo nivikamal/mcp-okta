@@ -1,5 +1,12 @@
-import { Tool } from "@modelcontextprotocol/sdk";
 import { z } from "zod";
+
+// Simple Tool interface for compatibility
+interface Tool {
+  name: string;
+  description?: string;
+  inputSchema: any;
+  handler: (input: any, ctx: any) => Promise<any>;
+}
 import { okta } from "../utils/okta-client.js";
 import { ensureAllowed } from "../utils/rbac.js";
 import { audit } from "../utils/audit.js";
@@ -40,7 +47,7 @@ function createConfirmationTools<T>(
   const executeTool: Tool = {
     name: `${baseName}_confirm`,
     description: `CONFIRMED execution of ${description}`,
-    inputSchema: schema.extend({ confirm: z.literal(true) }),
+    inputSchema: z.intersection(schema, z.object({ confirm: z.literal(true) })),
     handler: async (input, ctx) => {
       const startTime = Date.now();
       try {

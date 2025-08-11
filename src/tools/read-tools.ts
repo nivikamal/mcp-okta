@@ -1,4 +1,3 @@
-import { Tool } from "@modelcontextprotocol/sdk";
 import { z } from "zod";
 import {
   okta,
@@ -18,6 +17,14 @@ import {
   AppsQueryInput,
   LogQueryInput,
 } from "../types/okta.js";
+
+// Simple Tool interface for compatibility
+interface Tool {
+  name: string;
+  description?: string;
+  inputSchema: any;
+  handler: (input: any, ctx: any) => Promise<any>;
+}
 
 // Schema definitions
 const EmailSchema = z.object({ email: z.string().email() });
