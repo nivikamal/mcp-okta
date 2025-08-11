@@ -1,0 +1,190 @@
+{
+  "examples": {
+    "user_queries": [
+      {
+        "description": "Find user by email",
+        "tool": "get_user_by_email",
+        "input": {
+          "email": "user@example.com"
+        }
+      },
+      {
+        "description": "Search users with last name starting with 'Smith'",
+        "tool": "search_users",
+        "input": {
+          "query": "profile.lastName sw \"Smith\"",
+          "status": "ACTIVE",
+          "limit": 50
+        }
+      },
+      {
+        "description": "Find all suspended users",
+        "tool": "search_users",
+        "input": {
+          "query": "status eq \"SUSPENDED\"",
+          "limit": 100
+        }
+      },
+      {
+        "description": "Search users in specific department",
+        "tool": "search_users",
+        "input": {
+          "query": "profile.department eq \"Engineering\"",
+          "limit": 25
+        }
+      }
+    ],
+    "group_queries": [
+      {
+        "description": "List all groups",
+        "tool": "list_groups",
+        "input": {
+          "limit": 100
+        }
+      },
+      {
+        "description": "Search for Sales groups",
+        "tool": "list_groups",
+        "input": {
+          "query": "Sales",
+          "limit": 20
+        }
+      },
+      {
+        "description": "Add user to group (confirmation required)",
+        "tool": "add_user_to_group",
+        "input": {
+          "userId": "00u1234567890abcdef",
+          "groupId": "00g1234567890abcdef"
+        }
+      },
+      {
+        "description": "Confirm adding user to group",
+        "tool": "add_user_to_group_confirm",
+        "input": {
+          "userId": "00u1234567890abcdef",
+          "groupId": "00g1234567890abcdef",
+          "confirm": true
+        }
+      }
+    ],
+    "app_queries": [
+      {
+        "description": "List all applications",
+        "tool": "list_apps",
+        "input": {
+          "limit": 50
+        }
+      },
+      {
+        "description": "Search for specific application",
+        "tool": "list_apps",
+        "input": {
+          "query": "Salesforce",
+          "limit": 10
+        }
+      }
+    ],
+    "system_log_queries": [
+      {
+        "description": "Recent login events",
+        "tool": "system_log",
+        "input": {
+          "query": "eventType eq \"user.session.start\"",
+          "since": "2024-01-01T00:00:00Z",
+          "limit": 100
+        }
+      },
+      {
+        "description": "Failed authentication attempts",
+        "tool": "system_log",
+        "input": {
+          "query": "eventType eq \"user.authentication.auth_via_mfa\" and outcome.result eq \"FAILURE\"",
+          "since": "2024-01-01T00:00:00Z",
+          "limit": 50
+        }
+      },
+      {
+        "description": "User lifecycle events",
+        "tool": "system_log",
+        "input": {
+          "query": "eventType sw \"user.lifecycle\"",
+          "since": "2024-01-01T00:00:00Z",
+          "limit": 100
+        }
+      },
+      {
+        "description": "Events for specific user",
+        "tool": "system_log",
+        "input": {
+          "query": "actor.id eq \"00u1234567890abcdef\"",
+          "since": "2024-01-01T00:00:00Z",
+          "limit": 50
+        }
+      }
+    ],
+    "admin_actions": [
+      {
+        "description": "Suspend user (confirmation required)",
+        "tool": "suspend_user",
+        "input": {
+          "userId": "00u1234567890abcdef",
+          "reason": "Security investigation"
+        }
+      },
+      {
+        "description": "Confirm suspend user",
+        "tool": "suspend_user_confirm",
+        "input": {
+          "userId": "00u1234567890abcdef",
+          "reason": "Security investigation",
+          "confirm": true
+        }
+      },
+      {
+        "description": "Clear user sessions (confirmation required)",
+        "tool": "clear_user_sessions",
+        "input": {
+          "userId": "00u1234567890abcdef"
+        }
+      },
+      {
+        "description": "Confirm clear user sessions",
+        "tool": "clear_user_sessions_confirm",
+        "input": {
+          "userId": "00u1234567890abcdef",
+          "confirm": true
+        }
+      },
+      {
+        "description": "Reset user password (confirmation required)",
+        "tool": "reset_password",
+        "input": {
+          "userId": "00u1234567890abcdef"
+        }
+      },
+      {
+        "description": "Confirm reset password",
+        "tool": "reset_password_confirm",
+        "input": {
+          "userId": "00u1234567890abcdef",
+          "confirm": true
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "notes": [
+      "Replace placeholder user IDs (00u...) and group IDs (00g...) with actual Okta IDs",
+      "Adjust email addresses to match your Okta organization",
+      "Update date ranges in system_log queries to relevant time periods",
+      "All admin actions require a two-step confirmation process",
+      "Ensure your MCP client passes appropriate callerRole metadata for RBAC"
+    ],
+    "rbac_roles": {
+      "analyst": "Read-only access to user, group, app, and log data",
+      "helpdesk": "Analyst access plus user suspension, session clearing, group management, and password resets",
+      "admin": "Helpdesk access plus user deactivation/reactivation"
+    }
+  }
+}

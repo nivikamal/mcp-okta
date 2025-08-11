@@ -1,0 +1,111 @@
+{
+  "name": "@mcp/okta",
+  "version": "0.2.0",
+  "description": "Model Context Protocol (MCP) server for Okta administration - enabling natural language interaction with Okta APIs for user management, group administration, and system monitoring",
+  "type": "module",
+  "main": "dist/server.js",
+  "keywords": [
+    "mcp",
+    "okta",
+    "admin",
+    "automation",
+    "identity",
+    "iam"
+  ],
+  "author": "Your Name <your.email@company.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nivikamal/mcp-okta.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nivikamal/mcp-okta/issues"
+  },
+  "homepage": "https://github.com/nivikamal/mcp-okta#readme",
+  "mcp": {
+    "type": "server",
+    "protocol": "stdio",
+    "capabilities": {
+      "tools": true,
+      "resources": true,
+      "prompts": true
+    },
+    "entrypoint": "dist/server.js",
+    "configSchema": {
+      "type": "object",
+      "properties": {
+        "oktaDomain": {
+          "type": "string",
+          "description": "Your Okta domain (e.g., dev-123456.okta.com)"
+        },
+        "oktaOAuthTokenUrl": {
+          "type": "string",
+          "description": "OAuth token endpoint URL"
+        },
+        "oktaClientId": {
+          "type": "string",
+          "description": "OAuth client ID from Okta"
+        },
+        "oktaClientSecret": {
+          "type": "string",
+          "description": "OAuth client secret from Okta",
+          "secret": true
+        },
+        "allowedRoles": {
+          "type": "string",
+          "description": "Comma-separated list of allowed roles",
+          "default": "analyst,helpdesk,admin"
+        },
+        "logLevel": {
+          "type": "string",
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
+          "description": "Logging verbosity",
+          "default": "info"
+        }
+      },
+      "required": [
+        "oktaDomain",
+        "oktaOAuthTokenUrl",
+        "oktaClientId",
+        "oktaClientSecret"
+      ]
+    }
+  },
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "build": "tsc",
+    "serve": "node dist/server.js",
+    "dev": "ts-node --watch src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mcp",
+    "okta",
+    "admin",
+    "automation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "axios": "^1.6.0",
+    "zod": "^3.22.0",
+    "uuid": "^9.0.0",
+    "pino": "^8.17.0",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/uuid": "^9.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
