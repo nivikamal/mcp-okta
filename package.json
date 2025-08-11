@@ -1,6 +1,6 @@
 {
   "name": "@nivikamal/mcp-okta",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Model Context Protocol (MCP) server for Okta administration - enabling natural language interaction with Okta APIs for user management, group administration, and system monitoring",
   "type": "module",
   "main": "src/server.ts",
@@ -10,7 +10,7 @@
     "admin",
     "automation"
   ],
-  "author": "Your Name",
+  "author": "Kamal",
   "license": "MIT",
   "repository": {
     "type": "git",
