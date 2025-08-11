@@ -1,9 +1,9 @@
 {
   "name": "@nivikamal/mcp-okta",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Model Context Protocol (MCP) server for Okta administration - enabling natural language interaction with Okta APIs for user management, group administration, and system monitoring",
   "type": "module",
-  "main": "src/server.ts",
+  "main": "dist/server.js",
   "keywords": [
     "mcp",
     "okta",
@@ -28,7 +28,7 @@
       "resources": true,
       "prompts": true
     },
-    "entrypoint": "src/server.ts",
+    "entrypoint": "dist/server.js",
     "configSchema": {
       "type": "object",
       "properties": {
@@ -79,7 +79,9 @@
     "build": "tsc",
     "serve": "node dist/server.js",
     "dev": "ts-node --watch src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.2",
@@ -93,10 +95,15 @@
   "devDependencies": {
     "@types/node": "^20.19.10",
     "@types/uuid": "^9.0.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.0",
     "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "types": "dist/server.d.ts",
+  "files": [
+    "dist/"
+  ]
 }
